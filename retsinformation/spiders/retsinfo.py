@@ -8,10 +8,11 @@ from bs4 import BeautifulSoup
 # et lille eksempel :)
 class RetsinfoSpider(scrapy.Spider):
     name = "retsinfo"
-    start_urls = ["https://www.retsinformation.dk/api/document/eli/lta/2015/2"]
+    start_urls = ["https://www.retsinformation.dk/api/document/eli/lta/2000/"]
 
     def start_requests(self):
-        yield scrapy.Request(url=self.start_urls[0], callback=self.parse)
+        for i in range(1, 6):
+            yield scrapy.Request(url=self.start_urls[0] + str(i), callback=self.parse)
 
     def parse(self, response):
         json_data = json.loads(response.body)
