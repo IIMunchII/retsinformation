@@ -12,14 +12,10 @@ import os
 import django
 from pathlib import Path
 
-DJANGO_BASE_DIR = Path(__file__).resolve().parent + "/retsinfo_app"
-
+# Django integration
+DJANGO_BASE_DIR = Path(__file__).resolve().parent.joinpath('retsinfo_app')
 sys.path.append(DJANGO_BASE_DIR)
-
 os.environ['DJANGO_SETTINGS_MODULE'] = 'retsinfo_app.settings'
-# If you you use django outside of manage.py context, you 
-# need to explicitly setup the django
-
 django.setup()
 
 BOT_NAME = 'retsinformation'
