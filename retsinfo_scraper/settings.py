@@ -16,8 +16,7 @@ DJANGO_BASE_DIR = Path(__file__).resolve().parent + "/retsinfo_app"
 
 sys.path.append(DJANGO_BASE_DIR)
 
-
-os.environ['DJANGO_SETTINGS_MODULE'] = 'djangoProjectName.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'retsinfo_app.settings'
 # If you you use django outside of manage.py context, you 
 # need to explicitly setup the django
 
