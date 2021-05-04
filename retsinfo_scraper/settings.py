@@ -1,4 +1,4 @@
-# Scrapy settings for retsinformation project
+# Scrapy settings for retsinfo_scraper project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -13,19 +13,19 @@ import django
 from pathlib import Path
 
 # Django integration
-DJANGO_BASE_DIR = Path(__file__).resolve().parent.joinpath('retsinfo_app')
-sys.path.append(DJANGO_BASE_DIR)
+DJANGO_BASE_DIR = Path(__file__).resolve().parent.parent.joinpath('retsinfo_app')
+sys.path.append(str(DJANGO_BASE_DIR))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'retsinfo_app.settings'
 django.setup()
 
-BOT_NAME = 'retsinformation'
+BOT_NAME = 'retsinfo_scraper'
 
-SPIDER_MODULES = ['retsinformation.spiders']
-NEWSPIDER_MODULE = 'retsinformation.spiders'
+SPIDER_MODULES = ['retsinfo_scraper.spiders']
+NEWSPIDER_MODULE = 'retsinfo_scraper.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'retsinformation (+http://www.yourdomain.com)'
+#USER_AGENT = 'retsinfo_scraper (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -56,13 +56,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'retsinformation.middlewares.RetsinformationSpiderMiddleware': 543,
+#    'retsinfo_scraper.middlewares.RetsinformationSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'retsinformation.middlewares.RetsinformationDownloaderMiddleware': 543,
+#    'retsinfo_scraper.middlewares.RetsinformationDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -73,9 +73,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'retsinformation.pipelines.RetsinformationPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'retsinfo_scraper.pipelines.RetsinformationPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

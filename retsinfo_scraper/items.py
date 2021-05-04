@@ -5,8 +5,7 @@
 
 import scrapy
 from scrapy_djangoitem import DjangoItem
+from scrapers.models import RetsinfoDocument
 
-class RetsinformationItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class RetsinfoItem(DjangoItem):
+    django_model = RetsinfoDocument

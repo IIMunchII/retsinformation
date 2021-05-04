@@ -7,7 +7,11 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 
-
 class RetsinformationPipeline:
     def process_item(self, item, spider):
-        return item
+        adapter = ItemAdapter(item)
+        if adapter.get('doc_id'):
+            item.save()
+            return adapter.get('doc_id')
+        else:
+            raise DropItem(f"Missing price in {item}")
