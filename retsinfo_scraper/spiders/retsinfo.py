@@ -24,6 +24,7 @@ class RetsinfoSpider(scrapy.Spider):
         item['title'] = document_data.get('title')
         item['short_name'] = document_data.get('shortName')
         item['document_text'] = self.get_text_from_document(document_data)
+        item['document_html'] = document_data.get('documentHtml')
         item['is_historical'] = document_data.get('isHistorical')
         item['ressort'] = document_data.get('ressort')
         item['is_reprint'] = document_data.get('isReprint')

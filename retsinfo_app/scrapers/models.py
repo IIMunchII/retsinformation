@@ -5,6 +5,7 @@ class RetsinfoDocument(models.Model):
     title = models.TextField()
     short_name = models.CharField(max_length=500)
     document_text = models.TextField()
+    document_html = models.TextField()
     is_historical = models.BooleanField()
     ressort = models.CharField(max_length=255)
     is_reprint = models.CharField(max_length=255)
