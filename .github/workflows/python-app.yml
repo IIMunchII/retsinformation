@@ -10,13 +10,11 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
   deploy:
-
     runs-on: ubuntu-latest
     steps:
+    - uses: appleboy/ssh-action@v0.1.4
     - name: Deploy
-      uses: appleboy/ssh-action@v0.1.4
       with:
         host: ${{secrets.SSH_HOST}}
         key: ${{secrets.SSH_KEY}}
