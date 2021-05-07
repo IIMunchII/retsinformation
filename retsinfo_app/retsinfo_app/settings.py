@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'retsinfo_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django',
+        'USER': 'django',
+        'PASSWORD': '8f5e650382c04ffdb1752d531cca9885',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
