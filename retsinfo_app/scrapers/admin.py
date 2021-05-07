@@ -1,3 +1,4 @@
 from django.contrib import admin
+from .models import RetsinfoDocument
 
-# Register your models here.
+admin.site.register(RetsinfoDocument)
