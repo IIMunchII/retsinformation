@@ -22,7 +22,7 @@ jobs:
           su django
           cd /home/django/retsinformation/retsinfo_app
           source .env/bin/activate
-          git pull origin master
+          git pull
           pip install -r requirements.txt
           python manage.py collectstatic --noinput
           python manage.py makemigrations
