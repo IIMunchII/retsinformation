@@ -19,12 +19,11 @@ jobs:
         username: ${{secrets.SSH_USERNAME}}
 
         script: |
-          cd /home/django/retsinformation
           su django
+          cd /home/django/retsinformation/retsinfo_app
           source .env/bin/activate
           git pull origin master
           pip install -r requirements.txt
-          cd retsinfo_app
           python manage.py collectstatic
           python manage.py makemigrations
           python manage.py migrate
