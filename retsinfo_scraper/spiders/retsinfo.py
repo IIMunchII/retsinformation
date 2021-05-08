@@ -39,3 +39,8 @@ class RetsinfoSpider(scrapy.Spider):
     def get_text_from_document(self, document_data):
         soup = BeautifulSoup(document_data.get('documentHtml'), 'html.parser')
         return soup.get_text()
+
+    # TODO: Implementer redis til at holde styr på resultatet af iterationer over API-et
+    # https://docs.scrapy.org/en/latest/topics/request-response.html#topics-request-response-ref-errbacks
+    def errback_control_iter(self, failure):
+        pass
