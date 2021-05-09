@@ -13,10 +13,14 @@ class RetsinfoSpider(scrapy.Spider, RedisMixin):
     current_year = 1986
     redis_key = f"{current_year}:failures"
 
+    def __init__(self, max_pages=10, *args, **kwargs):
+        self.max_pages = int(max_pages)
+        super().__init__(**kwargs)
+
     def start_requests(self):
         for year in self.year_range:
             self.current_year = year
-            for i in range(0, 4):
+            for i in range(1, self.max_pages):
                 if self.no_more_pages(self.redis_key):
                     break
                 else:
