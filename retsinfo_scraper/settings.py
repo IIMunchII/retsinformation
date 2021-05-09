@@ -97,8 +97,3 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-
-# Redis settings
-REDIS_HOST = "localhost"
-REDIS_PORT = 6379
-REDIS_USER = "scrapy"

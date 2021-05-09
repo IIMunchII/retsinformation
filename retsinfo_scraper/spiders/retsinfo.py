@@ -1,16 +1,28 @@
 import scrapy
+from scrapy.spidermiddlewares.httperror import HttpError
 import json
 from bs4 import BeautifulSoup
 from retsinfo_scraper.items import RetsinfoItem
+from .mixins import RedisMixin
+from datetime import datetime
 
-
-class RetsinfoSpider(scrapy.Spider):
+class RetsinfoSpider(scrapy.Spider, RedisMixin):
     name = "retsinfo"
-    start_urls = ["https://www.retsinformation.dk/api/document/eli/lta/2000/"]
+    start_urls = ["https://www.retsinformation.dk/api/document/eli/lta/"]
+    year_range = range(1986, datetime.now().year + 1)
+    current_year = 1986
+    redis_key = f"{current_year}:failures"
 
     def start_requests(self):
-        for i in range(1, 6):
-            yield scrapy.Request(url=self.start_urls[0] + str(i), callback=self.parse)
+        for year in self.year_range:
+            self.current_year = year
+            for i in range(0, 4):
+                if self.no_more_pages(self.redis_key):
+                    break
+                else:
+                    yield scrapy.Request(url=self.start_urls[0] + f"{year}/{i}", 
+                                         callback=self.parse,
+                                         errback=self.errback_set_failure_count)
 
     def parse(self, response):
         item = RetsinfoItem()
@@ -18,7 +30,6 @@ class RetsinfoSpider(scrapy.Spider):
         item = self.map_json_to_item(item, document_data)
         yield item
 
-    # TODO: Convert this part into Item Load class see https://docs.scrapy.org/en/latest/topics/loaders.html
     def map_json_to_item(self, item, document_data):
         item['doc_id'] = document_data.get('id')
         item['title'] = document_data.get('title')
@@ -40,7 +51,6 @@ class RetsinfoSpider(scrapy.Spider):
         soup = BeautifulSoup(document_data.get('documentHtml'), 'html.parser')
         return soup.get_text()
 
-    # TODO: Implementer redis til at holde styr på resultatet af iterationer over API-et
-    # https://docs.scrapy.org/en/latest/topics/request-response.html#topics-request-response-ref-errbacks
-    def errback_control_iter(self, failure):
-        pass
+    def errback_set_failure_count(self, failure):
+        if failure.check(HttpError):
+            self.no_page_incrementer(self.redis_key)

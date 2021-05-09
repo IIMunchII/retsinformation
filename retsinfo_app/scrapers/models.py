@@ -8,7 +8,7 @@ class RetsinfoDocument(models.Model):
     document_html = models.TextField()
     is_historical = models.BooleanField()
     ressort = models.CharField(max_length=255)
-    is_reprint = models.CharField(max_length=255)
+    is_reprint = models.BooleanField()
     geographic_id = models.IntegerField()
     retsinfo_klassifikation_id = models.IntegerField()
     has_fob_tags = models.BooleanField()
