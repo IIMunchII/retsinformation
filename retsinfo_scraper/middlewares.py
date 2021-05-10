@@ -4,10 +4,10 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
-
+import json
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
-
+from scrapers.models import RetsinfoRequestLog
 
 class RetsinformationSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -82,7 +82,19 @@ class RetsinformationDownloaderMiddleware:
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
-
+        obj = RetsinfoRequestLog(url=str(request.url),
+                                 method=str(request.method),
+                                 headers=str(request.headers.__dict__),
+                                 meta=str(request.meta),
+                                 priority=str(request.priority),
+                                 encoding=str(request.encoding),
+                                 status=str(response.status),
+                                 ip_address=str(response.ip_address),
+                                 protocol=str(response.protocol),
+                                 document_nr=request.cb_kwargs.get('nr'),
+                                 document_year=request.cb_kwargs.get('year')
+                                 )
+        obj.save()
         # Must either;
         # - return a Response object
         # - return a Request object

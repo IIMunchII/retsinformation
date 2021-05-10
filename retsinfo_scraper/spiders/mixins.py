@@ -23,3 +23,9 @@ class RedisMixin:
             return int(value) > self.limit_404
         else:
             return False
+    
+    def get_redis_key(self, year):
+        return f"{year}:failures"
+    
+    def clear_all_keys(self, key_list):
+        self.redis.delete(*key_list)

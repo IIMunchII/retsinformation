@@ -14,4 +14,4 @@ class RetsinformationPipeline:
             item.save()
             return adapter.get('doc_id')
         else:
-            raise DropItem(f"Missing price in {item}")
+            raise DropItem(f"Missing doc_id in {item}")
