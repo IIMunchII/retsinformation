@@ -20,10 +20,9 @@ jobs:
 
         script: |
           cd /home/django/retsinformation/retsinfo_app
-          source .env/bin/activate
           sudo -u django git pull
-          sudo -u django pip install -r requirements.txt
-          sudo -u django python manage.py collectstatic --noinput
-          sudo -u django python manage.py makemigrations
-          sudo -u django python manage.py migrate
+          sudo -u django .env/bin/pip install -r requirements.txt
+          sudo -u django .env/bin/python manage.py collectstatic --noinput
+          sudo -u django .env/bin/python manage.py makemigrations
+          sudo -u django .env/bin/python manage.py migrate
           systemctl restart gunicorn
