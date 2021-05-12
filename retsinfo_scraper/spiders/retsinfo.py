@@ -24,7 +24,7 @@ class RetsinfoSpider(scrapy.Spider, RedisMixin):
 
     def start_requests(self):
         for year in self.year_range:
-            for i in range(0, self.max_pages):
+            for i in range(1, self.max_pages):
                 if self.no_more_pages(self.get_redis_key(year)):
                     break
                 else:
