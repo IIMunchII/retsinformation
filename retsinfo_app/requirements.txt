@@ -20,6 +20,7 @@ itemadapter==0.2.0
 itemloaders==1.0.4
 jmespath==0.10.0
 lxml==4.6.3
+Markdown==3.3.4
 numpy==1.20.2
 oauthlib==3.1.0
 pandas==1.2.4

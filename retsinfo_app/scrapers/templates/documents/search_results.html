@@ -1,0 +1,32 @@
+{% extends "documents/base.html" %}
+{% load document_tags %}
+
+{% block title %}Retsinfo søgning{% endblock %}
+
+{% block content %}
+<div align="center">
+  {% if query %}
+    <h1>Dokumenter fundet med søgeteksten: "{{ query }}"</h1>
+    <h3>
+      {% with results.count as total_results %}
+          Fandt {{ total_results }} resultat{{ total_results|pluralize }}
+      {% endwith %}
+    </h3>
+    {% for document in results %}
+        <h4><a href="{{ document.get_absolute_url }}">{{ document.title }}</a></h4>
+        {{ document.document_text|markdown|truncatewords_html:10 }}
+    {% empty %}
+      <p>Der blev ikke fundet nogen resultater.</p>
+    {% endfor %}
+    <p><a href="{% url "scrapers:document_search" %}">Søg igen</a></p>
+  {% else %}
+    <h1>Søg efter retsdokumenter</h1>
+    <div style="text-align:center">
+    <form id="search_form" method="get" align="center">
+      {{ form.as_p }}
+      <input type="submit" value="Søg">
+    </form>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
