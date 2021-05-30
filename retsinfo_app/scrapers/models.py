@@ -36,5 +36,7 @@ class RetsinfoDocument(models.Model):
 
 
 class RetsinfoSentences(models.Model):
-    document = models.ForeignKey(RetsinfoDocument, on_delete=models.CASCADE)
+    document = models.ForeignKey(RetsinfoDocument, 
+                                 on_delete=models.CASCADE,
+                                 related_name="sentences")
     sentence_text = models.TextField()
