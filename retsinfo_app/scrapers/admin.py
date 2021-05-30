@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import RetsinfoDocument, RetsinfoRequestLog
+from .models import RetsinfoDocument, RetsinfoSentences
 
 admin.site.register(RetsinfoDocument)
-admin.site.register(RetsinfoRequestLog)
+admin.site.register(RetsinfoSentences)

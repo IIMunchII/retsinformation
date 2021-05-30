@@ -35,18 +35,6 @@ class RetsinfoDocument(models.Model):
     objects = RetsinfoDocumentManager()
 
 
-class RetsinfoRequestLog(models.Model):
-    # Request fields
-    url = models.URLField()
-    method = models.CharField(max_length=10)
-    headers = models.JSONField()
-    meta = models.JSONField()
-    priority = models.IntegerField()
-    encoding = models.CharField(max_length=25)
-    document_year = models.IntegerField()
-    document_nr = models.IntegerField()
-    # Response fields
-    status = models.IntegerField()
-    ip_address = models.GenericIPAddressField()
-    protocol = models.CharField(max_length=10)
-    log_timestamp = models.DateTimeField(auto_now=True)
+class RetsinfoSentences(models.Model):
+    document = models.ForeignKey(RetsinfoDocument, on_delete=models.CASCADE)
+    sentence_text = models.TextField()
