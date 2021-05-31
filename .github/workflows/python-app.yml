@@ -23,4 +23,5 @@ jobs:
           sudo -u django .env/bin/python manage.py collectstatic --noinput
           sudo -u django .env/bin/python manage.py makemigrations
           sudo -u django .env/bin/python manage.py migrate
+          sudo -u django .env/bin/python manage.py djecrety -d settings -s
           systemctl restart gunicorn

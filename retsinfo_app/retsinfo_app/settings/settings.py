@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +19,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$8c&_8wnmkwh+#(!6on_a*!$h@73kc45^syau32)ep7_cw-054'
+SECRET_KEY = '9-7+hmwtb%kc6c^zjbq9a#^7uy@++js-_l2a9tqd)%$+ut%k)f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['retsinfosoegning.dk', 'www.retsinfosoegning.dk', 'localhost']
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -40,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'scrapers.apps.ScrapersConfig',
     'documents.apps.DocumentsConfig',
+    'djecrety',
 ]
 
 MIDDLEWARE = [
