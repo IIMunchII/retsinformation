@@ -2,8 +2,11 @@ from django.db import models
 from django.contrib.postgres.search import SearchVectorField, SearchVector
 from .managers import RetsinfoDocumentManager
 from django.contrib.postgres.indexes import GinIndex
+from django.urls import reverse
 
 class RetsinfoDocument(models.Model):
+    class Meta:
+        indexes = [GinIndex(fields=["search_vector"])]
 
     doc_id = models.IntegerField()
     url = models.URLField()
@@ -25,9 +28,11 @@ class RetsinfoDocument(models.Model):
     document_nr = models.IntegerField()
     created_at = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        indexes = [GinIndex(fields=["search_vector"])]
-    
+    def get_absolute_url(self):
+        return reverse('documents:document_detail',
+                       args=[self.id, self.doc_id])
+                             
+
     def save(self, *args, **kwargs):
         self.search_vector = SearchVector('document_text') 
         super().save(*args, **kwargs)

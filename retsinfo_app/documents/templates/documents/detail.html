@@ -1,0 +1,17 @@
+{% extends "documents/base.html" %}
+{% load document_tags %}
+
+{% block title %}{{ document.title }}{% endblock %}
+
+{% block content %}
+  <h1>{{ document.title }}</h1>
+  <p class="date">
+    Publiceret i {{ document.document_year }} by {{ document.ressort }}
+  </p>
+  {{ document.document_html|safe }}
+  <p>
+    <a href="{% url "documents:document_detail" document.id document.doc_id%}">
+      Share this document
+    </a>
+  </p>
+{% endblock %}
