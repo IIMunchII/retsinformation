@@ -25,5 +25,4 @@ jobs:
           sudo -u django .env/bin/python manage.py collectstatic --noinput
           sudo -u django .env/bin/python manage.py makemigrations
           sudo -u django .env/bin/python manage.py migrate
-          sudo -u django rm retsinfo_app/settings/.env
           systemctl restart gunicorn
