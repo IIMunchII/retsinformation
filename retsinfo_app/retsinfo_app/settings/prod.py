@@ -5,6 +5,8 @@ ALLOWED_HOSTS = ['retsinfosoegning.dk', 'www.retsinfosoegning.dk']
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
+ADMIN_ENABLED = False
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

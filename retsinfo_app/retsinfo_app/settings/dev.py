@@ -2,6 +2,7 @@ from .settings import *
 
 DEBUG = True
 ALLOWED_HOSTS = ['localhost']
+ADMIN_ENABLED = True
 
 DATABASES = {
     'default': {
@@ -13,6 +14,9 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+if ADMIN_ENABLED is True:
+    INSTALLED_APPS.append('django.contrib.admin')
 
 # Redis settings
 REDIS_HOST = "localhost"
