@@ -1,5 +1,4 @@
 from .settings import *
-import os
 
 DEBUG = False
 ALLOWED_HOSTS = ['retsinfosoegning.dk', 'www.retsinfosoegning.dk']
