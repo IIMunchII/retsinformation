@@ -19,7 +19,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('', include("scrapers.urls")),
-    path('document', include("documents.urls")),
+    path('document/', include("documents.urls")),
 ]
 
 if settings.ADMIN_ENABLED is True:
