@@ -7,6 +7,8 @@ SESSION_COOKIE_SECURE = True
 
 ADMIN_ENABLED = False
 
+DEFAULT_SETTINGS = 'retsinfo_app.settings.prod'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

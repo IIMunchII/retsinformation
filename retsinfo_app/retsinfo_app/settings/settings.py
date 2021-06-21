@@ -20,13 +20,9 @@ env = environ.Env(
 )
 environ.Env.read_env()
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
 
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.auth',
@@ -117,3 +113,11 @@ MEDIA_ROOT = 'media'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+BROKER_URL = 'redis://django:239dj+3kg8sk205nfbnsæ@localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://django:239dj+3kg8sk205nfbnsæ@localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'

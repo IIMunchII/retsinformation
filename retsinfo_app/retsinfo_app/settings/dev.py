@@ -4,6 +4,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['localhost']
 ADMIN_ENABLED = True
 
+DEFAULT_SETTINGS = 'retsinfo_app.settings.dev'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
