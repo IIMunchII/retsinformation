@@ -10,7 +10,7 @@ class DocumentEmbedding(models.Model):
         on_delete=models.CASCADE, 
         related_name="document_embedding")
     embedding = EmbeddingField()
-    array = ArrayField(models.FloatField())
+    array = ArrayField(models.FloatField(), default=list)
 
 class SentenceEmbedding(models.Model):
     document = models.ForeignKey(
@@ -18,4 +18,4 @@ class SentenceEmbedding(models.Model):
         on_delete=models.CASCADE, 
         related_name="sentence_embeddings")
     embedding = EmbeddingField()
-    array = ArrayField(models.FloatField())
+    array = ArrayField(models.FloatField(), default=list)
