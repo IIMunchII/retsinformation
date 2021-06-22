@@ -9,7 +9,7 @@ class DocumentEmbedding(models.Model):
         RetsinfoDocument, 
         on_delete=models.CASCADE, 
         related_name="document_embedding")
-    embedding = EmbeddingField()
+    embedding = EmbeddingField(null=True, blank=True)
     array = ArrayField(models.FloatField(), default=list)
 
 class SentenceEmbedding(models.Model):
@@ -17,5 +17,5 @@ class SentenceEmbedding(models.Model):
         RetsinfoDocument, 
         on_delete=models.CASCADE, 
         related_name="sentence_embeddings")
-    embedding = EmbeddingField()
+    embedding = EmbeddingField(null=True, blank=True)
     array = ArrayField(models.FloatField(), default=list)
