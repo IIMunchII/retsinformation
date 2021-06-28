@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import DocumentEmbedding, SentenceEmbedding
 
-# Register your models here.
+admin.site.register(DocumentEmbedding)
+admin.site.register(SentenceEmbedding)
