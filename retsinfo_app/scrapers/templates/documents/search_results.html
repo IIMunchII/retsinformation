@@ -22,7 +22,8 @@
   {% else %}
     <h1>Søg efter retsdokumenter</h1>
     <div style="text-align:center">
-    <form id="search_form" method="get" align="center">
+    <form id="search_form" method="post" align="center">
+      {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="Søg">
     </form>

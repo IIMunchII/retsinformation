@@ -13,8 +13,8 @@ class EmbeddingMixin(models.Model):
     @classmethod
     def search_nearest_neighbors(cls, embedding: Embedding):
         table_name = cls.objects.model._meta.db_table
-        return cls.objects.raw(cls.get_nn_query(), [table_name, embedding])
+        return cls.objects.raw(cls.get_nn_query(table_name), [embedding.tolist()])
 
     @staticmethod
-    def get_nn_query():
-        return "SELECT * FROM %s ORDER BY embedding <-> cube(%s)"
+    def get_nn_query(table_name):
+        return f"SELECT * FROM {table_name} ORDER BY embedding <-> cube(%s)"

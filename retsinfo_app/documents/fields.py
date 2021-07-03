@@ -25,6 +25,9 @@ class Embedding:
     def __to_np_array(self, db_value: str):
         clean_string = db_value.rstrip(')').lstrip('(')
         return np.fromstring(clean_string, sep=',')
+
+    def tolist(self):
+        return self.array.tolist()
     
     @property
     def array(self):
@@ -34,7 +37,7 @@ class Embedding:
         return self.__repr__()
     
     def __repr__(self):
-        return self.array.tolist()
+        return repr(self.array.tolist())
 
 
 class EmbeddingField(models.Field):
