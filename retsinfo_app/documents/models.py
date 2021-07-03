@@ -1,21 +1,16 @@
 from django.db import models
 from scrapers.models import RetsinfoDocument
+from .mixins import EmbeddingMixin
 
-from .fields import EmbeddingField
-from django.contrib.postgres.fields import ArrayField
-
-class DocumentEmbedding(models.Model):
+class DocumentEmbedding(EmbeddingMixin):
     document = models.OneToOneField(
         RetsinfoDocument, 
         on_delete=models.CASCADE, 
         related_name="document_embedding")
-    embedding = EmbeddingField(null=True, blank=True)
-    array = ArrayField(models.FloatField(), default=list)
 
-class SentenceEmbedding(models.Model):
+
+class SentenceEmbedding(EmbeddingMixin):
     document = models.ForeignKey(
         RetsinfoDocument, 
         on_delete=models.CASCADE, 
         related_name="sentence_embeddings")
-    embedding = EmbeddingField(null=True, blank=True)
-    array = ArrayField(models.FloatField(), default=list)

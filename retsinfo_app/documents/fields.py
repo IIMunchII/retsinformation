@@ -1,6 +1,9 @@
 import numpy as np
-
 from django.db import models
+
+class CubeValue(models.Transform):
+    lookup_name = 'cube'
+    function = 'CUBE'
 
 class NearestNeighbors(models.Lookup):
     """
@@ -13,7 +16,7 @@ class NearestNeighbors(models.Lookup):
         lhs, lhs_params = self.process_lhs(compiler, connection)
         rhs, rhs_params = self.process_rhs(compiler, connection)
         params = lhs_params + rhs_params
-        return '%s <-> %s' % (lhs, rhs), params
+        return '%s <-> cube(%s)' % (lhs, rhs), params
 
 class Embedding:
     def __init__(self, db_value: str, *args, **kwargs):
@@ -22,6 +25,9 @@ class Embedding:
     def __to_np_array(self, db_value: str):
         clean_string = db_value.rstrip(')').lstrip('(')
         return np.fromstring(clean_string, sep=',')
+
+    def tolist(self):
+        return self.array.tolist()
     
     @property
     def array(self):
@@ -31,7 +37,7 @@ class Embedding:
         return self.__repr__()
     
     def __repr__(self):
-        return np.array2string(self.array).replace("[", "(").replace("]", ")")
+        return repr(self.array.tolist())
 
 
 class EmbeddingField(models.Field):
@@ -51,7 +57,7 @@ class EmbeddingField(models.Field):
         return Embedding(value)
 
     def get_prep_value(self, value):
-        return str(value)
+        return value.array
     
     def db_type(self, connection):
         return 'cube'
