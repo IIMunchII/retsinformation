@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
-from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.indexes import GistIndex
 
 from .fields import EmbeddingField, Embedding
 
@@ -8,7 +8,7 @@ from .fields import EmbeddingField, Embedding
 class EmbeddingMixin(models.Model):
     class Meta:
         abstract = True
-        indexes = [GinIndex(fields=["embedding"])]
+        indexes = [GistIndex(fields=["embedding"])]
 
     embedding = EmbeddingField(null=True, blank=True)
     array = ArrayField(models.FloatField(), default=list)
