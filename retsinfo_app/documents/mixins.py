@@ -20,4 +20,4 @@ class EmbeddingMixin(models.Model):
 
     @staticmethod
     def get_nn_query(table_name):
-        return f"SELECT * FROM {table_name} ORDER BY embedding <-> cube(%s)"
+        return f"SELECT * FROM {table_name} ORDER BY embedding <-> cube(%s) LIMIT 10"
