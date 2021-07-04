@@ -6,6 +6,20 @@ on:
   push:
     branches: [ master ]
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Unit tests 
+        uses: actions/checkout@v2
+        uses: actions/setup-python@v2
+        with: 
+          python-version: '3.8'
+          script: |
+            sudo -u django .env/bin/python -c 'from django.core.management.utils import get_random_secret_key; print("SECRET_KEY=" + get_random_secret_key())' >> retsinfo_app/settings/.env
+            pip install -r requirements.txt
+            python manage.py check
+            python manage.py test
+
   deploy:
     runs-on: ubuntu-latest
     steps:
