@@ -6,6 +6,8 @@ from django.views import View
 from .forms import SearchForm
 from .models import RetsinfoDocument
 from documents.models import DocumentEmbedding
+from documents.fields import Embedding
+import requests
 
 def document_search(request):
     form = SearchForm()
@@ -40,7 +42,10 @@ class NearestNeighborsView(View):
         form = SearchForm(request.POST)
         if form.is_valid():
             query = form.cleaned_data['query']
-            embedding = DocumentEmbedding.objects.get(id=query).embedding
+            response = requests.post("http://127.0.0.1:5000/embed_and_reduce", data={"string": query})
+            embedding_string = str(response.json()).rstrip("]").lstrip("[")
+            embedding = Embedding(embedding_string)
+            #embedding = DocumentEmbedding.objects.get(id=query).embedding
             queryset = DocumentEmbedding.search_nearest_neighbors(embedding)
             result = [item.document for item in queryset[0:10]]
             return render(request, 
