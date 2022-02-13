@@ -1,6 +1,8 @@
 from django.db import models
 from scrapers.models import RetsinfoDocument
+
 from .mixins import EmbeddingMixin
+
 
 class DocumentEmbedding(EmbeddingMixin):
     document = models.OneToOneField(

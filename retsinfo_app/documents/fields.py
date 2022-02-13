@@ -1,6 +1,7 @@
 import numpy as np
 from django.db import models
 
+
 class CubeValue(models.Transform):
     lookup_name = 'cube'
     function = 'CUBE'
@@ -23,8 +24,11 @@ class Embedding:
         self.__array = self.__to_np_array(db_value)
 
     def __to_np_array(self, db_value: str):
-        clean_string = db_value.rstrip(')').lstrip('(')
+        clean_string = self.clean_string(db_value)
         return np.fromstring(clean_string, sep=',')
+
+    def clean_string(self, db_value):
+        return db_value.rstrip(')').lstrip('(')
 
     def tolist(self):
         return self.array.tolist()

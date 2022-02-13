@@ -1,13 +1,14 @@
 
+import requests
 from django.contrib.postgres.search import SearchQuery
 from django.shortcuts import render
 from django.views import View
+from documents.fields import Embedding
+from documents.models import DocumentEmbedding
 
 from .forms import SearchForm
 from .models import RetsinfoDocument
-from documents.models import DocumentEmbedding
-from documents.fields import Embedding
-import requests
+
 
 def document_search(request):
     form = SearchForm()
@@ -42,8 +43,8 @@ class NearestNeighborsView(View):
         form = SearchForm(request.POST)
         if form.is_valid():
             query = form.cleaned_data['query']
-            response = requests.post("http://127.0.0.1:5000/embed_and_reduce", data={"string": query})
-            embedding_string = str(response.json()).rstrip("]").lstrip("[")
+            response = self.request_embedding(query)
+            embedding_string = self.get_embed_string(response)
             embedding = Embedding(embedding_string)
             #embedding = DocumentEmbedding.objects.get(id=query).embedding
             queryset = DocumentEmbedding.search_nearest_neighbors(embedding)
@@ -52,4 +53,14 @@ class NearestNeighborsView(View):
                      "documents/search_results.html", 
                      {"results": result,
                      "form": form,
-                     "query": query})
+                     "query": query})    
+
+    def request_embedding(self, query):
+        return requests.post(
+            "http://127.0.0.1:5000/embed_and_reduce", 
+            data={"string": query}
+            )
+    
+    def get_embed_string(self, response):
+        return str(response.json()).rstrip("]").lstrip("[")
+
