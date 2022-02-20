@@ -23,7 +23,7 @@ Kør med kommandoen når du står i folderen `/retsinfo_scraper/` (der hvor sett
 
 /retsinformation/
 ```bash
-scrapy cralw retsinfo
+scrapy crawl retsinfo
 ```
 
 ### 3 - Resultatet
